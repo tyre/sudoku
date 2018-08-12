@@ -4,6 +4,7 @@ require "./square"
 module Sudoku
   class Board
     property! rows : Array(Row)
+    property! columns : Array(Column)
     property! tiles : Array(Array(Tile))
     property! squares : Array(Square)
     property! row_size : Int32
@@ -17,6 +18,7 @@ module Sudoku
       self.square_size = Math.sqrt(row_size).to_i
       build_tiles
       build_rows
+      build_columns
       build_squares
     end
 
@@ -43,6 +45,13 @@ module Sudoku
       end
     end
 
+    private def build_columns()
+      columns_acc = Array(Column).new()
+      self.columns = self.row_size.times.reduce(columns_acc) do |columns_acc, index|
+        column_tiles = self.rows.map { |row| row.tiles[index] }
+        columns_acc << Column.new(column_tiles)
+      end
+    end
 
     # 1. Break up the rows into groups of `square_size` (the height of a square)
     # 2. Break up each of those rows' tiles into groups of `square_size`

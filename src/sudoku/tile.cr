@@ -1,10 +1,17 @@
+require "./square"
+require "./row"
+require "./column"
+
 module Sudoku
   class Tile
 
     property! possibilities : Set(Int32)
     property value : Int32?
+    property square : Square?
+    property row : Row?
+    property column : Column?
 
-    def initialize(board_size : Int32, @value)
+    def initialize(board_size : Int32, @value : Int32?)
       if value?
         self.possibilities = Set(Int32).new
       else
