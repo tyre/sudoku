@@ -40,10 +40,7 @@ describe Sudoku::Solver do
       solver = Sudoku::Solver.new(board)
 
       solver.solve!
-
-      puts "~" * 25
-      puts board.as_formatted_string
-      puts "~" * 25
+      board.solved?.should be_true
     end
   end
 
@@ -77,10 +74,7 @@ describe Sudoku::Solver do
       solver = Sudoku::Solver.new(board)
 
       solver.solve!
-
-      puts "~" * 25
-      puts board.as_formatted_string
-      puts "~" * 25
+      board.solved?.should be_true
     end
   end
 
@@ -97,7 +91,7 @@ describe Sudoku::Solver do
     #   [nil,   5, nil,   3, nil,   4, nil, nil,   1]
     # ]
 
-    it "should solve the board" do
+    pending "should solve the board" do
       sample_rows = [
         [nil, nil, nil, 5, nil, 6, 4, nil, nil],
         [nil, nil, nil, nil, nil, nil, nil, 6, 2],
@@ -115,7 +109,7 @@ describe Sudoku::Solver do
 
       solver.solve!
 
-      puts board.as_formatted_string
+      board.solved?.should be_true
     end
   end
 end

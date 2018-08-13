@@ -6,11 +6,13 @@ module Sudoku
       @tiles = Array(Tile).new
 
       property! board_size : Int32
+      property! square_size : Int32
       property! tiles : Array(Tile)
 
       def initialize(_tiles = Array(Tile).new)
         _tiles.each { |tile| add_tile(tile) }
         self.board_size = self.tiles.size
+        self.square_size = Math.sqrt(board_size).to_i32
       end
 
       def add_tile(tile : Tile)
@@ -40,22 +42,6 @@ module Sudoku
 
       def contains?(value : Int32)
         tiles.any? { |tile| tile.value == value }
-      end
-
-      def as_formatted_string
-        square_length = Math.sqrt(board_size)
-        break_points = [square_length - 1, (square_length * 2 - 1)]
-        values_output = tiles.each.with_index.map do |tile_and_index|
-          tile = tile_and_index.first
-          index = tile_and_index.last
-          if break_points.includes?(index)
-            tile.as_formatted_string + " | "
-          else
-            tile.as_formatted_string
-          end
-        end
-
-        "[ " + values_output.join(" | ") + " ]"
       end
     end
   end

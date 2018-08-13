@@ -23,20 +23,6 @@ module Sudoku
         build_squares
       end
 
-      def as_formatted_string
-        break_points = [square_size - 1, (square_size * 2 - 1)]
-        formatted_rows = rows.each.with_index.map do |row_and_index|
-          row = row_and_index.first
-          index = row_and_index.last
-          if break_points.includes?(index)
-            row.as_formatted_string + "\n"
-          else
-            row.as_formatted_string
-          end
-        end.join("\n")
-        "\n#{formatted_rows}\n\n"
-      end
-
       def values
         tiles.map { |tile| tile.value }
       end

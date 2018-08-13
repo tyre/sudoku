@@ -41,14 +41,6 @@ module Sudoku
         end
         @value = new_value
       end
-
-      def as_formatted_string
-        if value.nil?
-          "_"
-        else
-          value.to_s
-        end
-      end
     end
   end
 end

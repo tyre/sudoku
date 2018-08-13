@@ -5,25 +5,25 @@ module Sudoku
   class Solver
     property! board : Sudoku::Components::Board
 
-    def initialize(@board : Sudoku::Components::Board)
+    def initialize(@board : Sudoku::Components::Board, @debug = false)
     end
 
     def solve!
       unsolved_tiles = [board.unsolved_tiles.size]
-      puts board.as_formatted_string
+      Sudoku::Helpers::PrettyPrinter.puts(board) if @debug
       until board.solved?
         if !board.valid?
-          puts "Invalid board! Aborting"
+          puts "Invalid board! Aborting" if @debug
           break
         end
-        puts "Solving with #{unsolved_tiles.last} remaining…"
+        puts "Solving with #{unsolved_tiles.last} remaining…" if @debug
         solve
         unsolved_tiles << board.unsolved_tiles.size
         if unsolved_tiles.last(4).first == unsolved_tiles.last
-          puts "Made no progress, aborting"
+          puts "Made no progress, aborting" if @debug
           break
         end
-        puts board.as_formatted_string
+        Sudoku::Helpers::PrettyPrinter.puts(board) if @debug
       end
     end
 
@@ -97,7 +97,7 @@ module Sudoku
 
         tiles_by_possibilities.each do |possibility, tiles|
           if tiles.size == 1
-            puts "Solving #{possibility} with #{tiles.map { |t| t.object_id }}"
+            puts "Solving #{possibility} with #{tiles.map { |t| t.object_id }}" if @debug
             tiles.first.value = possibility
             return true
           end
