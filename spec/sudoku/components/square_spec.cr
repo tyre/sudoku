@@ -1,19 +1,19 @@
-require "../spec_helper"
+require "../../spec_helper"
 
-describe Sudoku::Square do
+describe Sudoku::Components::Square do
   describe "#initialize" do
     it "associates itself with each `tile.square`" do
       tiles = [
         [
-          Sudoku::Tile.new(4, 1),
-          Sudoku::Tile.new(4, 2)
+          Sudoku::Components::Tile.new(4, 1),
+          Sudoku::Components::Tile.new(4, 2)
         ],
         [
-          Sudoku::Tile.new(4, 3),
-          Sudoku::Tile.new(4, 4)
+          Sudoku::Components::Tile.new(4, 3),
+          Sudoku::Components::Tile.new(4, 4)
         ]
       ]
-      square = Sudoku::Square.new(tiles)
+      square = Sudoku::Components::Square.new(tiles)
       tiles.flatten.all? { |tile| tile.square == square }.should be_true
     end
   end
@@ -23,15 +23,15 @@ describe Sudoku::Square do
       it "should return true" do
         tiles = [
           [
-            Sudoku::Tile.new(4, 1),
-            Sudoku::Tile.new(4, 2)
+            Sudoku::Components::Tile.new(4, 1),
+            Sudoku::Components::Tile.new(4, 2)
           ],
           [
-            Sudoku::Tile.new(4, 3),
-            Sudoku::Tile.new(4, 4)
+            Sudoku::Components::Tile.new(4, 3),
+            Sudoku::Components::Tile.new(4, 4)
           ]
         ]
-        square = Sudoku::Square.new(tiles)
+        square = Sudoku::Components::Square.new(tiles)
 
         square.contains?(1).should be_true
         square.contains?(2).should be_true
@@ -44,15 +44,15 @@ describe Sudoku::Square do
       it "should return false" do
         tiles = [
           [
-            Sudoku::Tile.new(4, 1),
-            Sudoku::Tile.new(4, nil)
+            Sudoku::Components::Tile.new(4, 1),
+            Sudoku::Components::Tile.new(4, nil)
           ],
           [
-            Sudoku::Tile.new(4, 3),
-            Sudoku::Tile.new(4, 4)
+            Sudoku::Components::Tile.new(4, 3),
+            Sudoku::Components::Tile.new(4, 4)
           ]
         ]
-        square = Sudoku::Square.new(tiles)
+        square = Sudoku::Components::Square.new(tiles)
 
         square.contains?(2).should be_false
       end
@@ -64,15 +64,15 @@ describe Sudoku::Square do
       it "returns an empty set" do
         tiles = [
           [
-            Sudoku::Tile.new(4, 1),
-            Sudoku::Tile.new(4, 2)
+            Sudoku::Components::Tile.new(4, 1),
+            Sudoku::Components::Tile.new(4, 2)
           ],
           [
-            Sudoku::Tile.new(4, 3),
-            Sudoku::Tile.new(4, 4)
+            Sudoku::Components::Tile.new(4, 3),
+            Sudoku::Components::Tile.new(4, 4)
           ]
         ]
-        square = Sudoku::Square.new(tiles)
+        square = Sudoku::Components::Square.new(tiles)
         square.possibilities.should eq Set(Int32).new()
       end
     end
@@ -81,15 +81,15 @@ describe Sudoku::Square do
       it "returns a set of the remaining values" do
         tiles = [
           [
-            Sudoku::Tile.new(4, 1),
-            Sudoku::Tile.new(4, nil)
+            Sudoku::Components::Tile.new(4, 1),
+            Sudoku::Components::Tile.new(4, nil)
           ],
           [
-            Sudoku::Tile.new(4, nil),
-            Sudoku::Tile.new(4, 4)
+            Sudoku::Components::Tile.new(4, nil),
+            Sudoku::Components::Tile.new(4, 4)
           ]
         ]
-        square = Sudoku::Square.new(tiles)
+        square = Sudoku::Components::Square.new(tiles)
         square.possibilities.should eq [2, 3].to_set
       end
     end

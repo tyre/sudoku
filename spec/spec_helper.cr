@@ -1,2 +1,2 @@
 require "spec"
-require "../src/sudoku"
+require "../src/sudoku/**"
